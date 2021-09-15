@@ -22,7 +22,7 @@ class TasksController < ApplicationController
     @task = current_user.tasks.build(task_params)
     if @task.save
       flash[:success] = 'Taskが正常に投稿されました'
-      redirect_to tasks_url
+      redirect_to @task
     else
       flash.now[:danger] = 'Taskが投稿されませんでした'
       render :new
@@ -58,7 +58,11 @@ class TasksController < ApplicationController
   def task_params
     params.require(:task).permit(:content, :status)
   end
+  
   def correct_user
-    @task = current_user.tasks.find_by(id: :params[:id])
+    @task = current_user.tasks.find_by(id: params[:id])
+    unless @task
+    end
+      redirect_to root_url
   end
 end
