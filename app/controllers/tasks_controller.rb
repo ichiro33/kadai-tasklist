@@ -12,8 +12,7 @@ class TasksController < ApplicationController
   end
   
   def show
-    @task = Task.find(params[:id])
-    redirect_to(root_url) 
+    
   end
   
   def new
