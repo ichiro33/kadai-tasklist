@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, :correct_user, only: [:show, :edit, :update, :destroy]
+  before_action :correct_user, only: [:show, :edit, :update, :destroy]
   before_action :require_user_logged_in
   
   
@@ -40,14 +40,11 @@ class TasksController < ApplicationController
     @task.destroy
     
     flash[:success] = 'メッセージは正常に削除されました'
-    redirect_back(fallback_location: root_path)
+    redirect_back tasks_url
   end
   
   private
   
-  def set_task
-    Task.find(params[:id])
-  end
   
   def task_params
     params.require(:task).permit(:content, :status)
